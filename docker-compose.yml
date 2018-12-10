@@ -4,21 +4,19 @@ services:
 
   camilo:
     restart: always
-    privileged: true
-    image: opsforge/chamilo-docker:latest
+    image: ensi-secu/devoir2:latest
     ports:
-      - 8001:80
+      - 8080:80
     links:
       - camilo-mysql:mysql
-    volumes:
-      - /home/vagrant/chamilo-docker/chamilo-lms-1.10.8/:/var/www/html/
 
   camilo-mysql:
     restart: always
-    image: mysql:5.5
+    image: mysql:5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=Standard1
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=chamilo
+      - MYSQL_USER=chamilo
+      - MYSQL_PASSWORD=azertyuiop
     ports:
-      - 8306:3306
-    volumes:
-      - /home/vagrant/chamilo-docker/mysql/:/var/lib/mysql/
+      - 3306:3306
